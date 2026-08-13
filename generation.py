@@ -8,9 +8,17 @@ from prompt import RAG_PROMPT
 
 load_dotenv()
 
+GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GOOGLE_API_KEY:
+    raise ValueError(
+        "GEMINI_API_KEY was not found in the .env file."
+    )
+
 llm = ChatGoogleGenerativeAI(
     model="gemini-3.6-flash",
-    temperature=0
+    temperature=0,
+    google_api_key=GOOGLE_API_KEY
 )
 
 def format_context(documents):
